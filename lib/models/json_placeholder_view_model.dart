@@ -5,8 +5,9 @@ class JsonPlaceholderViewModel extends ChangeNotifier {
   final JsonPlaceholderModel _model = JsonPlaceholderModel();
   Album? album;
 
-  Future<void> fetchAlbum() async {
+  Future<Album> fetchAlbum() async {
     album = await _model.fetchAlbum();
     notifyListeners();
+    return album!;
   }
 }

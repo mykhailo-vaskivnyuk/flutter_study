@@ -1,6 +1,6 @@
-
 import 'dart:convert';
 import 'dart:math';
+
 import 'package:http/http.dart' as http;
 
 class JsonPlaceholderModel {
@@ -9,9 +9,16 @@ class JsonPlaceholderModel {
     final url = Uri.parse(
       'https://jsonplaceholder.typicode.com/albums/$albumId',
     );
-    final response = await http.get(url);
+    final response = await http.get(
+      url,
+      headers: {'Accept': 'application/json'},
+    );
 
-    return Album.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    if (response.statusCode == 200) {
+      return Album.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    } else {
+      throw Exception('Failed to load album');
+    }
   }
 }
 
@@ -23,10 +30,13 @@ class Album {
   Album({required this.userId, required this.id, required this.title});
 
   factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-    );
+    return switch (json) {
+      {'userId': int userId, 'id': int id, 'title': String title} => Album(
+        userId: userId,
+        id: id,
+        title: title,
+      ),
+      _ => throw const FormatException('Failed to load album.'),
+    };
   }
 }
