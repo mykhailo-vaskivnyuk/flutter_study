@@ -4,7 +4,7 @@ import 'package:flutter_app_first/game/guess_input.dart';
 import 'package:flutter_app_first/game/tile.dart';
 
 class GamePage extends StatefulWidget {
-  GamePage({super.key});
+  const GamePage({super.key});
 
   @override
   State<GamePage> createState() => _GamePageState();
@@ -28,11 +28,13 @@ class _GamePageState extends State<GamePage> {
               ],
             ),
           ),
-          GuessInput(onSubmitGuess: (String guess) {
-              setState(() { 
+          GuessInput(
+            onSubmitGuess: (String guess) {
+              setState(() {
                 _game.guess(guess);
               });
-            },),
+            },
+          ),
         ],
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_first/models/json_placeholder_model.dart';
-import 'package:flutter_app_first/models/json_placeholder_view_model.dart';
+import 'package:flutter_app_first/my/models/json_placeholder_model.dart';
+import 'package:flutter_app_first/my/models/json_placeholder_view_model.dart';
 
 class JsonPlaceholderPage extends StatefulWidget {
   const JsonPlaceholderPage({super.key});

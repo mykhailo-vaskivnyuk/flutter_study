@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_first/layouts/layout_page.dart';
-import 'package:flutter_app_first/pages/counter_page.dart';
-import 'package:flutter_app_first/pages/drawer_page.dart';
-import 'package:flutter_app_first/pages/json_placeholder_page.dart';
-import 'package:flutter_app_first/pages/ws_echo_page.dart';
+import 'package:flutter_app_first/my/layouts/layout_page.dart';
+import 'package:flutter_app_first/my/pages/counter_page.dart';
+import 'package:flutter_app_first/my/pages/drawer_page.dart';
+import 'package:flutter_app_first/my/pages/json_placeholder_page.dart';
+import 'package:flutter_app_first/my/pages/ws_echo_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

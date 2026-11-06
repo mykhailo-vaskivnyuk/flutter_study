@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GuessInput extends StatefulWidget {
-  GuessInput({super.key, required this.onSubmitGuess});
+  const GuessInput({super.key, required this.onSubmitGuess});
 
   final void Function(String) onSubmitGuess;
 

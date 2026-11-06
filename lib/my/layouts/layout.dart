@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_first/pages/home_page.dart';
-import 'package:flutter_app_first/pages/settings_page.dart';
+import 'package:flutter_app_first/my/pages/home_page.dart';
+import 'package:flutter_app_first/my/pages/settings_page.dart';
 
 typedef PageData = ({Widget page, String title});
 const List<PageData> pages = [

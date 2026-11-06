@@ -43,7 +43,19 @@ class _DrawerPageState extends State<DrawerPage> {
           },
         ),
       ),
-      body: Center(child: _widgetOptions[_selectedIndex]),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _widgetOptions[_selectedIndex],
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Back'),
+            ),
+          ],
+        ),
+      ),
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
