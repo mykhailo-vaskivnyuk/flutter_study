@@ -1,5 +1,5 @@
 import 'package:cupertino_ui/cupertino_ui.dart';
-import 'package:flutter_app_first/rolodex.dart';
+import 'package:flutter_app_first/rolodex/rolodex_app.dart';
 import 'package:flutter_app_first/rolodex/data/contact.dart';
 import 'package:flutter_app_first/rolodex/data/contact_group.dart';
 import 'package:flutter_app_first/rolodex/screens/contacts.dart';
