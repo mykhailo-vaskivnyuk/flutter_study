@@ -25,7 +25,7 @@ class _CreateItemPageState extends State<CreateItemPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Add Item'),
+        title: const Text('Create Item'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

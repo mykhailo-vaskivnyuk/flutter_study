@@ -24,12 +24,12 @@ class StorageModel {
     _items.removeWhere((item) => item.id == id);
   }
 
-  void getItem(int id) {
-    _items.firstWhere((item) => item.id == id);
+  Item? getItem(int id) {
+    return _items.where((item) => item.id == id).firstOrNull;
   }
 
   List<Item> get items {
-    return _items;
+    return [..._items];
   }
 }
 
