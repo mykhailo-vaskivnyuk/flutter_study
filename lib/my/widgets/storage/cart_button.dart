@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_first/my/models/storage_model.dart';
-import 'package:flutter_app_first/my/pages/storage/cart_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class CartButton extends StatelessWidget {
   const CartButton({super.key});
@@ -16,13 +16,7 @@ class CartButton extends StatelessWidget {
         tooltip: 'Open cart',
         onPressed: () {
           final cartCubit = context.read<CartCubit>();
-          Navigator.push(
-            context,
-            MaterialPageRoute<void>(
-              builder: (_) =>
-                  BlocProvider.value(value: cartCubit, child: const CartPage()),
-            ),
-          );
+          context.push('storage/cart', extra: cartCubit);
         },
         icon: Badge.count(
           count: cart.length,

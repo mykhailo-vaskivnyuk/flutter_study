@@ -39,6 +39,7 @@ dependencies:
   cupertino_ui: ^1.1.5
   web_socket_channel: ^3.0.3
   flutter_bloc: ^9.1.1
+  go_router: ^18.1.3
 
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_first/my/models/storage_model.dart';
-import 'package:flutter_app_first/my/pages/storage/create_item_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class CreateItemButton extends StatelessWidget {
   const CreateItemButton({super.key});
@@ -12,16 +12,7 @@ class CreateItemButton extends StatelessWidget {
       tooltip: 'Add item',
       onPressed: () {
         final cubit = context.read<StorageCubit>();
-
-        Navigator.push(
-          context,
-          MaterialPageRoute<void>(
-            builder: (_) => BlocProvider.value(
-              value: cubit,
-              child: const CreateItemPage(),
-            ),
-          ),
-        );
+        context.push('storage/create-item', extra: cubit);
       },
       child: const Icon(Icons.add),
     );

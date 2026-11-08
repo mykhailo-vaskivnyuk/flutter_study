@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_first/my/layouts/layout_page.dart';
-import 'package:flutter_app_first/my/pages/counter_page.dart';
-import 'package:flutter_app_first/my/pages/drawer_page.dart';
-import 'package:flutter_app_first/my/pages/json_placeholder_page.dart';
-import 'package:flutter_app_first/my/pages/storage/storage_page.dart';
-import 'package:flutter_app_first/my/pages/ws_echo_page.dart';
+import 'package:flutter_app_first/my/widgets/home_nav_button.dart';
+import 'package:go_router/go_router.dart';
+
+typedef HomeButtonData = ({String label, String path});
+
+const List<HomeButtonData> pages = [
+  (label: 'Counter Page', path: '/counter'),
+  (label: 'Json Placeholder Page', path: '/json-placeholder'),
+  (label: 'Ws Echo Page', path: '/ws-echo'),
+  (label: 'Drawer Page', path: '/drawer'),
+  (label: 'Storage Page', path: '/storage'),
+];
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,72 +20,14 @@ class HomePage extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisAlignment: .center,
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (context) => LayoutPageWidget(
-                    title: 'Counter Page',
-                    page: CounterPage(),
-                  ),
-                ),
-              );
-            },
-            child: Text('Go to Counter Page'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (context) => LayoutPageWidget(
-                    title: 'Json Placeholder Page',
-                    page: JsonPlaceholderPage(),
-                  ),
-                ),
-              );
-            },
-            child: Text('Go to Json Placeholder Page'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (context) => LayoutPageWidget(
-                    title: 'Json Placeholder Page',
-                    page: WsEchoPage(),
-                  ),
-                ),
-              );
-            },
-            child: Text('Go to Ws Echo Page'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (context) => DrawerPage(title: 'Drawer Page'),
-                ),
-              );
-            },
-            child: Text('Go to Drawer Page'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (context) => const StoragePage(),
-                ),
-              );
-            },
-            child: Text('Go to Storage Page'),
-          ),
-        ],
+        children: pages
+            .map(
+              (button) => HomeNavButton(
+                label: button.label,
+                onPressed: () => context.push(button.path),
+              ),
+            )
+            .toList(),
       ),
     );
   }

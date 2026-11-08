@@ -4,9 +4,9 @@ import 'package:material_ui/material_ui.dart';
 
 class ArticlePage extends StatelessWidget {
   const ArticlePage({
-    super.key,
     required this.summary,
     required this.nextArticleCallback,
+    super.key,
   });
 
   final Summary summary;

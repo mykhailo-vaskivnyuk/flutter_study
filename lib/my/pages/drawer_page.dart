@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DrawerPage extends StatefulWidget {
   const DrawerPage({super.key, required this.title});
@@ -75,7 +76,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 // Update the state of the app
                 _onItemTapped(0);
                 // Then close the drawer
-                Navigator.pop(context);
+                context.pop();
               },
             ),
             ListTile(
@@ -85,7 +86,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 // Update the state of the app
                 _onItemTapped(1);
                 // Then close the drawer
-                Navigator.pop(context);
+                context.pop();
               },
             ),
             ListTile(
@@ -95,7 +96,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 // Update the state of the app
                 _onItemTapped(2);
                 // Then close the drawer
-                Navigator.pop(context);
+                context.pop();
               },
             ),
           ],
