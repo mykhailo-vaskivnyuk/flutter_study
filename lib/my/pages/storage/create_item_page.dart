@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_first/my/models/storage_model.dart';
+import 'package:flutter_app_first/my/models/storage_cubit.dart';
 import 'package:flutter_app_first/my/widgets/storage/create_item_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,23 +41,9 @@ class _CreateItemPageState extends State<CreateItemPage> {
   void _save() {
     if (_formKey.currentState!.validate()) {
       final cubit = context.read<StorageCubit>();
-      final items = cubit.state.items;
-      final nextId = items.isEmpty ? 1 : items.last.id + 1;
       final name = _nameController.text.trim();
 
-      cubit.addItem(Item(id: nextId, name: name));
-
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          SnackBar(
-            content: Text(
-              '"$name" added to storage',
-              style: const TextStyle(fontSize: 20, color: Colors.white),
-            ),
-            backgroundColor: Colors.deepOrangeAccent,
-          ),
-        );
+      cubit.createItem(name);
 
       Navigator.pop(context);
     }

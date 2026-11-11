@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_first/my/models/storage_model.dart';
+import 'package:flutter_app_first/my/models/item_model.dart';
+import 'package:flutter_app_first/my/models/storage_cubit.dart';
 import 'package:flutter_app_first/my/widgets/storage/storage_item_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,47 +9,31 @@ class StorageItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartCubit, List<Item>>(
-      builder: (context, cart) {
-        final storageCubit = context.read<StorageCubit>();
-        final items = storageCubit.state.items;
-        final cartCubit = context.read<CartCubit>();
-        final cartIds = cart.map((item) => item.id).toSet();
+    final cubit = context.read<StorageCubit>();
+    final items = context.select<StorageCubit, List<Item>>(
+      (state) => state.state.storageItems,
+    );
+    context.select<StorageCubit, int>(
+      (state) => state.state.cartItemsCount,
+    );
 
-        return ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            final item = items[index];
-            final inCart = cartIds.contains(item.id);
-            return StorageItemTile(
-              item: item,
-              inCart: inCart,
-              onAddToCart: () => _addToCart(context, item, inCart),
-              onDelete: () {
-                storageCubit.removeItem(item.id);
-                cartCubit.removeItem(item.id);
-              },
-            );
-          },
+    if (items.isEmpty) {
+      return const Center(child: Text('No items yet'));
+    }
+
+    return ListView.builder(
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        final item = items[index];
+        final id = item.id;
+        final inCart = cubit.isItemInCart(id);
+        return StorageItemTile(
+          item: item,
+          inCart: inCart,
+          onAddToCart: () => cubit.addItemToCart(id),
+          onDelete: () => cubit.removeItem(id),
         );
       },
     );
-  }
-
-  void _addToCart(BuildContext context, Item item, bool inCart) {
-    context.read<CartCubit>().addItem(item);
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text(
-            inCart
-                ? '"${item.name}" is already in the cart'
-                : '"${item.name}" added to cart',
-            style: const TextStyle(fontSize: 20, color: Colors.white),
-          ),
-          backgroundColor: Colors.deepOrangeAccent,
-        ),
-      );
   }
 }
