@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_first/my/models/storage_cubit.dart';
+import 'package:flutter_app_first/my/cubits/cart_cubit.dart';
 import 'package:flutter_app_first/my/pages/storage/cart_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,9 +8,8 @@ class CartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<StorageCubit>();
-    final count = context.select<StorageCubit, int>(
-      (state) => state.state.cartItemsCount,
+    final count = context.select<CartCubit, int>(
+      (cubit) => cubit.state.itemIds.length,
     );
 
     return Padding(
@@ -18,11 +17,14 @@ class CartButton extends StatelessWidget {
       child: IconButton(
         tooltip: 'Open cart',
         onPressed: () {
+          context.read<CartCubit>().updateItems();
           Navigator.push(
             context,
             MaterialPageRoute<void>(
-              builder: (_) =>
-                  BlocProvider.value(value: cubit, child: const CartPage()),
+              builder: (_) => BlocProvider.value(
+                value: context.read<CartCubit>(),
+                child: const CartPage(),
+              ),
             ),
           );
         },

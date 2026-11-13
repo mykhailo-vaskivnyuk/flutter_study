@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_first/my/cubits/cart_cubit.dart';
+import 'package:flutter_app_first/my/cubits/storage_cubit.dart';
 import 'package:flutter_app_first/my/models/item_model.dart';
-import 'package:flutter_app_first/my/models/storage_cubit.dart';
 import 'package:flutter_app_first/my/widgets/storage/storage_item_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,12 +10,11 @@ class StorageItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<StorageCubit>();
     final items = context.select<StorageCubit, List<Item>>(
-      (state) => state.state.storageItems,
+      (cubit) => cubit.state,
     );
-    context.select<StorageCubit, int>(
-      (state) => state.state.cartItemsCount,
+    final cartItemIds = context.select<CartCubit, List<int>>(
+      (cubit) => cubit.state.itemIds,
     );
 
     if (items.isEmpty) {
@@ -26,12 +26,13 @@ class StorageItemList extends StatelessWidget {
       itemBuilder: (context, index) {
         final item = items[index];
         final id = item.id;
-        final inCart = cubit.isItemInCart(id);
+        final inCart = cartItemIds.contains(id);
+
         return StorageItemTile(
           item: item,
           inCart: inCart,
-          onAddToCart: () => cubit.addItemToCart(id),
-          onDelete: () => cubit.removeItem(id),
+          onAddToCart: () => context.read<CartCubit>().addItemId(id),
+          onDelete: () => context.read<StorageCubit>().removeItem(id),
         );
       },
     );

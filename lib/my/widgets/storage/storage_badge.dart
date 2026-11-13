@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_first/my/models/storage_cubit.dart';
+import 'package:flutter_app_first/my/cubits/storage_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StorageBadge extends StatelessWidget {
@@ -8,7 +8,7 @@ class StorageBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final count = context.select<StorageCubit, int>(
-      (state) => state.state.storageItems.length,
+      (cubit) => cubit.state.length,
     );
 
     return Badge.count(

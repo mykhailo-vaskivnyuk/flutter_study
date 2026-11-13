@@ -1,33 +1,46 @@
+import 'dart:async';
+
 import 'package:flutter_app_first/my/models/item_model.dart';
 
 class StorageRepository {
   StorageRepository();
 
-  final List<Item> _items = [];
   int _lastId = 0;
+  final List<Item> _items = [];
+  final _deletedItemsController = StreamController<Item>.broadcast();
 
-  void createItem(String name) {
-    final id = ++_lastId;
-    final item = Item(id: id, name: name);
+  Stream<Item> get deletedItems => _deletedItemsController.stream;
+
+  List<Item> createItem(String name) {
+    final item = Item(id: ++_lastId, name: name);
 
     _items.add(item);
+
+    return List.from(_items);
   }
 
-  void removeItem(int id) {
-    _items.removeWhere((item) => item.id == id);
+  List<Item> removeItem(int id) {
+    final item = getItem(id);
+
+    if (item != null) {
+      _items.remove(item);
+      _deletedItemsController.add(item);
+    }
+
+    return List.from(_items);
   }
 
   Item? getItem(int id) {
-    final hasItem = _items.any((item) => item.id == id);
+    final index = _items.indexWhere((item) => item.id == id);
 
-    if (!hasItem) {
+    if (index == -1) {
       return null;
     }
 
-    return _items.firstWhere((item) => item.id == id);
+    return _items[index];
   }
 
-  List<Item> get items {
-    return List.from(_items);
+  void dispose() {
+    _deletedItemsController.close();
   }
 }

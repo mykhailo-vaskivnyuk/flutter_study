@@ -3,20 +3,17 @@ class CartRepository {
 
   final List<int> _items = [];
 
-  void addItem(int id) {
-    if (_items.any((item) => item == id)) {
-      return;
+  List<int> addItem(int id) {
+    if (!_items.contains(id)) {
+      _items.add(id);
     }
-    _items.add(id);
+
+    return List.from(_items);
   }
 
-  void removeItem(int id) {
+  List<int> removeItem(int id) {
     _items.remove(id);
-  }
 
-  bool hasItem(int id) {
-    return _items.contains(id);
+    return List.from(_items);
   }
-
-  List<int> get items => [..._items];
 }
