@@ -3,6 +3,7 @@ import 'package:flutter_app_first/my/layouts/layout_page.dart';
 import 'package:flutter_app_first/my/pages/counter_page.dart';
 import 'package:flutter_app_first/my/pages/drawer_page.dart';
 import 'package:flutter_app_first/my/pages/json_placeholder_page.dart';
+import 'package:flutter_app_first/my/pages/storage/storage_page.dart';
 import 'package:flutter_app_first/my/pages/ws_echo_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -18,7 +19,7 @@ class HomePage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                MaterialPageRoute<void>(
                   builder: (context) => LayoutPageWidget(
                     title: 'Counter Page',
                     page: CounterPage(),
@@ -32,7 +33,7 @@ class HomePage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                MaterialPageRoute<void>(
                   builder: (context) => LayoutPageWidget(
                     title: 'Json Placeholder Page',
                     page: JsonPlaceholderPage(),
@@ -46,7 +47,7 @@ class HomePage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                MaterialPageRoute<void>(
                   builder: (context) => LayoutPageWidget(
                     title: 'Json Placeholder Page',
                     page: WsEchoPage(),
@@ -60,12 +61,23 @@ class HomePage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                MaterialPageRoute<void>(
                   builder: (context) => DrawerPage(title: 'Drawer Page'),
                 ),
               );
             },
             child: Text('Go to Drawer Page'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (context) => const StoragePage(),
+                ),
+              );
+            },
+            child: Text('Go to Storage Page'),
           ),
         ],
       ),
