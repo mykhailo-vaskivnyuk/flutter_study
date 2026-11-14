@@ -32,6 +32,9 @@ class CartCubit extends Cubit<CartCubitState> {
   }
 
   void addItemId(int id) {
+    if (state.itemIds.contains(id)) {
+      return;
+    }
     emit((
       items: state.items,
       itemIds: _cartRepository.addItem(id),

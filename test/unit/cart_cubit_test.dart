@@ -47,7 +47,6 @@ void main() {
       cubit.addItemId(1);
       cubit.state.itemIds.add(2);
 
-      // The next emit comes from the repository, which still only has id 1.
       cubit.addItemId(3);
 
       expect(cubit.state.itemIds, [1, 3]);
