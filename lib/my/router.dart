@@ -48,9 +48,8 @@ final routerConfig = GoRouter(
             GoRoute(
               path: 'create-item',
               builder: (context, state) {
-                final storageCubit = state.extra! as StorageCubit;
                 return BlocProvider.value(
-                  value: storageCubit,
+                  value: state.extra! as StorageCubit,
                   child: const CreateItemPage(),
                 );
               },
@@ -58,9 +57,8 @@ final routerConfig = GoRouter(
             GoRoute(
               path: 'cart',
               builder: (context, state) {
-                final cartCubit = state.extra! as CartCubit;
                 return BlocProvider.value(
-                  value: cartCubit,
+                  value: state.extra! as CartCubit,
                   child: const CartPage(),
                 );
               },
