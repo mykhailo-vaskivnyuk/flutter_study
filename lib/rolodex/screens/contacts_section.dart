@@ -3,9 +3,9 @@ import 'package:flutter_app_first/rolodex/data/contact.dart';
 
 class ContactListSection extends StatelessWidget {
   const ContactListSection({
-    super.key,
     required this.lastInitial,
     required this.contacts,
+    super.key,
   });
 
   final String lastInitial;

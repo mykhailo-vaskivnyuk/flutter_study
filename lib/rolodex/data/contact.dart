@@ -2,8 +2,8 @@ class Contact {
   Contact({
     required this.id,
     required this.firstName,
-    this.middleName,
     required this.lastName,
+    this.middleName,
     this.suffix,
   });
 

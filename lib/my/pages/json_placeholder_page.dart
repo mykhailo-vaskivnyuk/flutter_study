@@ -15,7 +15,7 @@ class _JsonPlaceholderPageState extends State<JsonPlaceholderPage> {
   Future<Album>? _futureAlbum;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     _futureAlbum = _viewModel.fetchAlbum();
   }

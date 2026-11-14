@@ -1,7 +1,7 @@
 import 'package:cupertino_ui/cupertino_ui.dart';
-import 'package:flutter_app_first/rolodex/rolodex_app.dart';
 import 'package:flutter_app_first/rolodex/data/contact.dart';
 import 'package:flutter_app_first/rolodex/data/contact_group.dart';
+import 'package:flutter_app_first/rolodex/rolodex_app.dart';
 import 'package:flutter_app_first/rolodex/screens/contacts.dart';
 
 class ContactGroupsPage extends StatelessWidget {
@@ -71,7 +71,7 @@ class _ContactGroupsView extends StatelessWidget {
   }
 
   Widget _buildTrailing(List<Contact> contacts, BuildContext context) {
-    final TextStyle style = CupertinoTheme.of(context).textTheme.textStyle
+    final style = CupertinoTheme.of(context).textTheme.textStyle
         .copyWith(color: CupertinoColors.systemGrey);
 
     return Row(
@@ -90,9 +90,9 @@ class _ContactGroupsView extends StatelessWidget {
 
 class ContactGroupsSidebar extends StatelessWidget {
   const ContactGroupsSidebar({
-    super.key,
     required this.selectedListId,
     required this.onListSelected,
+    super.key,
   });
 
   final int selectedListId;
