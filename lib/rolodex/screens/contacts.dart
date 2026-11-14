@@ -1,10 +1,10 @@
 import 'package:cupertino_ui/cupertino_ui.dart';
-import 'package:flutter_app_first/rolodex/rolodex_app.dart';
 import 'package:flutter_app_first/rolodex/data/contact_group.dart';
+import 'package:flutter_app_first/rolodex/rolodex_app.dart';
 import 'package:flutter_app_first/rolodex/screens/contacts_section.dart';
 
 class ContactListsPage extends StatelessWidget {
-  const ContactListsPage({super.key, required this.listId});
+  const ContactListsPage({required this.listId, super.key});
 
   final int listId;
 
@@ -68,7 +68,7 @@ class _ContactListView extends StatelessWidget {
 }
 
 class ContactListDetail extends StatelessWidget {
-  const ContactListDetail({super.key, required this.listId});
+  const ContactListDetail({required this.listId, super.key});
 
   final int listId;
 

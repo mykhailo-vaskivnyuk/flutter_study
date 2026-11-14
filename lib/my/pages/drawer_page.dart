@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DrawerPage extends StatefulWidget {
-  const DrawerPage({super.key, required this.title});
+  const DrawerPage({required this.title, super.key});
 
   final String title;
 

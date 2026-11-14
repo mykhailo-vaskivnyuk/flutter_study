@@ -23,10 +23,6 @@ class JsonPlaceholderModel {
 }
 
 class Album {
-  final int userId;
-  final int id;
-  final String title;
-
   Album({required this.userId, required this.id, required this.title});
 
   factory Album.fromJson(Map<String, dynamic> json) {
@@ -39,4 +35,8 @@ class Album {
       _ => throw const FormatException('Failed to load album.'),
     };
   }
+
+  final int userId;
+  final int id;
+  final String title;
 }

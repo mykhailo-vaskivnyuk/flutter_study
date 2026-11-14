@@ -16,9 +16,8 @@ class LayoutWidget extends StatefulWidget {
 }
 
 class _LayoutWidgetState extends State<LayoutWidget> {
-  int _index = 0;
-
   _LayoutWidgetState();
+  int _index = 0;
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,7 @@ import 'package:flutter_app_first/wiki/summary.dart';
 import 'package:material_ui/material_ui.dart';
 
 class ArticleWidget extends StatelessWidget {
-  const ArticleWidget({super.key, required this.summary});
+  const ArticleWidget({required this.summary, super.key});
 
   final Summary summary;
 
