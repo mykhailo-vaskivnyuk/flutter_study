@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_first/my/models/storage_model.dart';
+import 'package:flutter_app_first/my/models/item_model.dart';
 
 class StorageItemTile extends StatelessWidget {
   const StorageItemTile({

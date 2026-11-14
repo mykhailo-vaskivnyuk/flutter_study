@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class DrawerPage extends StatefulWidget {
-  const DrawerPage({super.key, required this.title});
+  const DrawerPage({required this.title, super.key});
 
   final String title;
 

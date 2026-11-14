@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_first/my/models/storage_model.dart';
-import 'package:flutter_app_first/my/widgets/storage/cart_button.dart';
-import 'package:flutter_app_first/my/widgets/storage/create_item_button.dart';
-import 'package:flutter_app_first/my/widgets/storage/storage_badge.dart';
-import 'package:flutter_app_first/my/widgets/storage/storage_item_list.dart';
+import 'package:flutter_app_first/my/cubits/cart_cubit.dart';
+import 'package:flutter_app_first/my/cubits/storage_cubit.dart';
+import 'package:flutter_app_first/my/data/cart_repository.dart';
+import 'package:flutter_app_first/my/data/storage_repository.dart';
+import 'package:flutter_app_first/my/widgets/storage/storage_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StoragePage extends StatelessWidget {
@@ -11,43 +11,24 @@ class StoragePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => StorageCubit()),
-        BlocProvider(create: (_) => CartCubit()),
-      ],
-      child: const _StorageView(),
-    );
-  }
-}
-
-class _StorageView extends StatelessWidget {
-  const _StorageView();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Storage Page'),
-        actions: [
-          const StorageBadge(),
-          const SizedBox(width: 24),
-          const CartButton(),
+    return RepositoryProvider(
+      create: (_) => StorageRepository(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (ctx) => StorageCubit(
+              storageRepository: RepositoryProvider.of<StorageRepository>(ctx),
+            ),
+          ),
+          BlocProvider(
+            create: (ctx) => CartCubit(
+              storageRepository: RepositoryProvider.of<StorageRepository>(ctx),
+              cartRepository: CartRepository(),
+            ),
+          ),
         ],
+        child: const StorageView(),
       ),
-      body: BlocBuilder<StorageCubit, StorageModel>(
-        builder: (context, storage) {
-          final items = storage.items;
-
-          if (items.isEmpty) {
-            return const Center(child: Text('No items yet'));
-          }
-
-          return StorageItemList();
-        },
-      ),
-      floatingActionButton: const CreateItemButton(),
     );
   }
 }

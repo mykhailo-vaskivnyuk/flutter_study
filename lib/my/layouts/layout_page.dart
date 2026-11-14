@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LayoutPageWidget extends StatelessWidget {
-  const LayoutPageWidget({super.key, required this.title, required this.page});
+  const LayoutPageWidget({required this.title, required this.page, super.key});
 
   final String title;
   final Widget page;

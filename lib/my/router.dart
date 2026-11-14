@@ -1,6 +1,7 @@
+import 'package:flutter_app_first/my/cubits/cart_cubit.dart';
+import 'package:flutter_app_first/my/cubits/storage_cubit.dart';
 import 'package:flutter_app_first/my/layouts/layout.dart';
 import 'package:flutter_app_first/my/layouts/layout_page.dart';
-import 'package:flutter_app_first/my/models/storage_model.dart';
 import 'package:flutter_app_first/my/pages/counter_page.dart';
 import 'package:flutter_app_first/my/pages/drawer_page.dart';
 import 'package:flutter_app_first/my/pages/json_placeholder_page.dart';
@@ -19,14 +20,14 @@ final routerConfig = GoRouter(
       routes: [
         GoRoute(
           path: 'counter',
-          builder: (context, state) => LayoutPageWidget(
+          builder: (context, state) => const LayoutPageWidget(
             title: 'Counter Page',
-            page: const CounterPage(),
+            page: CounterPage(),
           ),
         ),
         GoRoute(
           path: 'json-placeholder',
-          builder: (context, state) => LayoutPageWidget(
+          builder: (context, state) => const LayoutPageWidget(
             title: 'Json Placeholder Page',
             page: JsonPlaceholderPage(),
           ),
@@ -34,11 +35,11 @@ final routerConfig = GoRouter(
         GoRoute(
           path: 'ws-echo',
           builder: (context, state) =>
-              LayoutPageWidget(title: 'Ws Echo Page', page: WsEchoPage()),
+              const LayoutPageWidget(title: 'Ws Echo Page', page: WsEchoPage()),
         ),
         GoRoute(
           path: 'drawer',
-          builder: (context, state) => DrawerPage(title: 'Drawer Page'),
+          builder: (context, state) => const DrawerPage(title: 'Drawer Page'),
         ),
         GoRoute(
           path: 'storage',

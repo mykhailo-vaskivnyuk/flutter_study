@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_first/my/models/storage_model.dart';
+import 'package:flutter_app_first/my/cubits/cart_cubit.dart';
 import 'package:flutter_app_first/my/widgets/storage/cart_item_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,21 +13,28 @@ class CartPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Cart'),
       ),
-      body: BlocBuilder<CartCubit, List<Item>>(
-        builder: (context, cart) {
-          if (cart.isEmpty) {
+      body: BlocConsumer<CartCubit, CartCubitState>(
+        listenWhen: (previous, current) =>
+            previous.itemIds.length > current.itemIds.length,
+        listener: (context, state) {
+          context.read<CartCubit>().updateItems();
+        },
+        buildWhen: (previous, current) =>
+            previous.items.length > current.items.length,
+        builder: (context, state) {
+          final items = state.items;
+
+          if (items.isEmpty) {
             return const Center(child: Text('Cart is empty'));
           }
 
-          final cartCubit = context.read<CartCubit>();
-
           return ListView.builder(
-            itemCount: cart.length,
+            itemCount: items.length,
             itemBuilder: (context, index) {
-              final item = cart[index];
+              final item = items[index];
               return CartItemTile(
                 item: item,
-                onDelete: () => cartCubit.removeItem(item.id),
+                onDelete: () => context.read<CartCubit>().removeItemId(item.id),
               );
             },
           );

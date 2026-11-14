@@ -1,7 +1,6 @@
 import 'package:cupertino_ui/cupertino_ui.dart';
+import 'package:flutter_app_first/rolodex/screens/contact_groups.dart';
 import 'package:flutter_app_first/rolodex/screens/contacts.dart';
-
-import 'contact_groups.dart';
 
 const largeScreenMinWidth = 600;
 
