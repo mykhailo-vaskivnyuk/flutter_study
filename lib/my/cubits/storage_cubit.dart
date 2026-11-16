@@ -7,7 +7,7 @@ typedef StorageCubitState = List<Item>;
 class StorageCubit extends Cubit<StorageCubitState> {
   StorageCubit({
     required this._storageRepository,
-  }) : super(const []);
+  }) : super(_storageRepository.getAllItems());
 
   final StorageRepository _storageRepository;
 

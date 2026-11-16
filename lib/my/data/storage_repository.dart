@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_app_first/my/data/shared_preferences.dart';
 import 'package:flutter_app_first/my/models/item_model.dart';
 
 class StorageRepository {
@@ -11,10 +12,27 @@ class StorageRepository {
 
   Stream<Item> get deletedItems => _deletedItemsController.stream;
 
+  final LocalStorage<Map<String, dynamic>> _localStorage = LocalStorage(
+    key: 'storageItems',
+  );
+
+  Future<void> _save() async {
+    final rawItems = _items.map((item) => item.toJson()).toList();
+    await _localStorage.saveData(rawItems);
+  }
+
+  Future<void> initialize() async {
+    final rawItems = await _localStorage.getData();
+
+    _items.addAll(rawItems.map(Item.fromJson));
+    _lastId = _items.lastOrNull?.id ?? 0;
+  }
+
   List<Item> createItem(String name) {
     final item = Item(id: ++_lastId, name: name);
 
     _items.add(item);
+    _save();
 
     return List.from(_items);
   }
@@ -25,6 +43,7 @@ class StorageRepository {
     if (item != null) {
       _items.remove(item);
       _deletedItemsController.add(item);
+      _save();
     }
 
     return List.from(_items);
@@ -38,6 +57,10 @@ class StorageRepository {
     }
 
     return _items[index];
+  }
+
+  List<Item> getAllItems() {
+    return List.from(_items);
   }
 
   void dispose() {

@@ -11,7 +11,7 @@ class CartCubit extends Cubit<CartCubitState> {
   CartCubit({
     required this._storageRepository,
     required this._cartRepository,
-  }) : super(const (items: [], itemIds: [])) {
+  }) : super((items: [], itemIds: _cartRepository.getAllItems())) {
     _subscribe();
   }
 
