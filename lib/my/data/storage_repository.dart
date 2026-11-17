@@ -1,6 +1,7 @@
 import 'dart:async';
+import 'dart:developer';
 
-import 'package:flutter_app_first/my/data/shared_preferences.dart';
+import 'package:flutter_app_first/my/data/local_storage.dart';
 import 'package:flutter_app_first/my/models/item_model.dart';
 
 class StorageRepository {
@@ -17,8 +18,12 @@ class StorageRepository {
   );
 
   Future<void> _save() async {
-    final rawItems = _items.map((item) => item.toJson()).toList();
-    await _localStorage.saveData(rawItems);
+    try {
+      final rawItems = _items.map((item) => item.toJson()).toList();
+      await _localStorage.saveData(rawItems);
+    } catch (error, stackTrace) {
+      log('Failed to save storage', error: error, stackTrace: stackTrace);
+    }
   }
 
   Future<void> initialize() async {

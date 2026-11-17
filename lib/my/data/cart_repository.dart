@@ -1,4 +1,6 @@
-import 'package:flutter_app_first/my/data/shared_preferences.dart';
+import 'dart:developer';
+
+import 'package:flutter_app_first/my/data/local_storage.dart';
 
 class CartRepository {
   CartRepository();
@@ -8,7 +10,11 @@ class CartRepository {
   final LocalStorage<int> _localStorage = LocalStorage(key: 'cartItems');
 
   Future<void> _save() async {
-    await _localStorage.saveData(List<int>.from(_items));
+    try {
+      await _localStorage.saveData(List<int>.from(_items));
+    } catch (error, stackTrace) {
+      log('Failed to save cart', error: error, stackTrace: stackTrace);
+    }
   }
 
   Future<void> initialize() async {
