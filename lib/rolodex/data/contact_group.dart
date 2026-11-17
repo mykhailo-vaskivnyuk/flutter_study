@@ -1,4 +1,5 @@
 import 'dart:collection';
+
 import 'package:flutter_app_first/rolodex/data/contact.dart';
 
 class ContactGroup {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_first/my/cubits/storage_cubit.dart';
 import 'package:flutter_app_first/my/widgets/storage/create_item_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class CreateItemPage extends StatefulWidget {
   const CreateItemPage({super.key});
@@ -45,7 +46,7 @@ class _CreateItemPageState extends State<CreateItemPage> {
 
       cubit.createItem(name);
 
-      Navigator.pop(context);
+      context.pop();
     }
   }
 }
