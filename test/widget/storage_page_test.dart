@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_first/my/router.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../helpers/shared_preferences.dart';
+
 Future<void> _pumpStoragePage(WidgetTester tester) async {
   routerConfig.go('/storage');
   final app = MaterialApp.router(routerConfig: routerConfig);
@@ -43,6 +45,9 @@ String? _badgeCount(Badge badge) => (badge.label! as Text).data;
 
 void main() {
   group('StoragePage', () {
+    setUp(setUpSharedPreferencesMock);
+    tearDown(tearDownSharedPreferencesMock);
+
     testWidgets('shows an empty message when there are no items', (
       WidgetTester tester,
     ) async {
