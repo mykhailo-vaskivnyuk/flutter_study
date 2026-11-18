@@ -1,21 +1,82 @@
+import 'dart:convert';
+
 import 'package:flutter_app_first/my/data/storage_repository.dart';
 import 'package:flutter_app_first/my/models/item_model.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../helpers/shared_preferences.dart';
+
+Future<void> _seedStorageItems(List<Map<String, Object>> items) async {
+  await SharedPreferencesAsync().setString(
+    'storageItems',
+    jsonEncode(items),
+  );
+}
 
 void main() {
   group('StorageRepository', () {
     late StorageRepository repository;
 
     setUp(() {
+      setUpSharedPreferencesMock();
       repository = StorageRepository();
     });
 
     tearDown(() {
       repository.dispose();
+      tearDownSharedPreferencesMock();
     });
 
     test('starts with no items', () {
       expect(repository.getItem(1), isNull);
+    });
+
+    test('initialize leaves repository empty when preferences are empty',
+        () async {
+      await repository.initialize();
+
+      expect(repository.getAllItems(), isEmpty);
+    });
+
+    test('initialize loads items from shared preferences', () async {
+      await _seedStorageItems([
+        {'id': 1, 'name': 'A'},
+        {'id': 2, 'name': 'B'},
+      ]);
+
+      await repository.initialize();
+
+      expect(repository.getAllItems().map((i) => i.name), ['A', 'B']);
+      expect(repository.getItem(1)?.name, 'A');
+      expect(repository.getItem(2)?.name, 'B');
+    });
+
+    test('initialize continues ids after the last loaded item', () async {
+      await _seedStorageItems([
+        {'id': 1, 'name': 'A'},
+        {'id': 5, 'name': 'B'},
+      ]);
+
+      await repository.initialize();
+      final items = repository.createItem('C');
+
+      expect(items.map((i) => i.id), [1, 5, 6]);
+      expect(items.last.name, 'C');
+    });
+
+    test('initialize restores items after createItem persists them', () async {
+      repository
+        ..createItem('A')
+        ..createItem('B');
+      await pumpEventQueue();
+
+      repository.dispose();
+      repository = StorageRepository();
+      await repository.initialize();
+
+      expect(repository.getAllItems().map((i) => i.name), ['A', 'B']);
+      expect(repository.createItem('C').map((i) => i.id), [1, 2, 3]);
     });
 
     test('createItem adds an item and returns the list', () {

@@ -3,12 +3,15 @@ import 'package:flutter_app_first/my/data/cart_repository.dart';
 import 'package:flutter_app_first/my/data/storage_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../helpers/shared_preferences.dart';
+
 void main() {
   group('CartCubit', () {
     late StorageRepository storageRepository;
     late CartCubit cubit;
 
     setUp(() {
+      setUpSharedPreferencesMock();
       storageRepository = StorageRepository();
       cubit = CartCubit(
         storageRepository: storageRepository,
@@ -19,6 +22,7 @@ void main() {
     tearDown(() async {
       await cubit.close();
       storageRepository.dispose();
+      tearDownSharedPreferencesMock();
     });
 
     test('starts empty', () {

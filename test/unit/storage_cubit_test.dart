@@ -2,12 +2,15 @@ import 'package:flutter_app_first/my/cubits/storage_cubit.dart';
 import 'package:flutter_app_first/my/data/storage_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../helpers/shared_preferences.dart';
+
 void main() {
   group('StorageCubit', () {
     late StorageRepository repository;
     late StorageCubit cubit;
 
     setUp(() {
+      setUpSharedPreferencesMock();
       repository = StorageRepository();
       cubit = StorageCubit(storageRepository: repository);
     });
@@ -15,6 +18,7 @@ void main() {
     tearDown(() async {
       await cubit.close();
       repository.dispose();
+      tearDownSharedPreferencesMock();
     });
 
     test('starts empty', () {
