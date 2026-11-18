@@ -14,6 +14,11 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
+    final counterPageButton = find.text('Counter Page');
+    expect(counterPageButton, findsOneWidget);
+    await tester.tap(counterPageButton);
+    await tester.pumpAndSettle();
+
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
     expect(find.text('1'), findsNothing);

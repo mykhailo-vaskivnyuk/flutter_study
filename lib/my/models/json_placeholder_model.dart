@@ -4,12 +4,16 @@ import 'dart:math';
 import 'package:http/http.dart' as http;
 
 class JsonPlaceholderModel {
+  JsonPlaceholderModel({required this._client});
+
+  final http.Client _client;
+
   Future<Album> fetchAlbum() async {
     final albumId = Random().nextInt(100) + 1;
     final url = Uri.parse(
       'https://jsonplaceholder.typicode.com/albums/$albumId',
     );
-    final response = await http.get(
+    final response = await _client.get(
       url,
       headers: {'Accept': 'application/json'},
     );
@@ -27,11 +31,16 @@ class Album {
 
   factory Album.fromJson(Map<String, dynamic> json) {
     return switch (json) {
-      {'userId': int userId, 'id': int id, 'title': String title} => Album(
-        userId: userId,
-        id: id,
-        title: title,
-      ),
+      {
+        'userId': final int userId,
+        'id': final int id,
+        'title': final String title,
+      } =>
+        Album(
+          userId: userId,
+          id: id,
+          title: title,
+        ),
       _ => throw const FormatException('Failed to load album.'),
     };
   }
