@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_first/my/models/item_model.dart';
+import 'package:flutter_app_first/my/widgets/storage/item_dismiss_background.dart';
 
 class StorageItemTile extends StatelessWidget {
   const StorageItemTile({
@@ -17,25 +18,31 @@ class StorageItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      selected: inCart,
-      selectedTileColor: Theme.of(context).colorScheme.surfaceDim,
-      title: Text(item.name),
-      subtitle: Text('id: ${item.id}'),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton(
-            tooltip: 'Add to cart',
-            icon: const Icon(Icons.add_shopping_cart),
-            onPressed: onAddToCart,
-          ),
-          IconButton(
-            tooltip: 'Delete',
-            icon: const Icon(Icons.delete_outline),
-            onPressed: onDelete,
-          ),
-        ],
+    return Dismissible(
+      key: ValueKey(item.id),
+      direction: .endToStart,
+      onDismissed: (_) => onDelete(),
+      background: const ItemDismissBackground(),
+      child: ListTile(
+        selected: inCart,
+        selectedTileColor: Theme.of(context).colorScheme.surfaceDim,
+        title: Text(item.name),
+        subtitle: Text('id: ${item.id}'),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              tooltip: 'Add to cart',
+              icon: const Icon(Icons.add_shopping_cart),
+              onPressed: onAddToCart,
+            ),
+            IconButton(
+              tooltip: 'Delete',
+              icon: const Icon(Icons.delete_outline),
+              onPressed: onDelete,
+            ),
+          ],
+        ),
       ),
     );
   }

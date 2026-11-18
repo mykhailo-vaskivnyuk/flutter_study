@@ -121,5 +121,23 @@ void main() {
       expect(find.text('Item name'), findsNothing);
       expect(find.text('No items yet'), findsOneWidget);
     });
+
+    testWidgets('deletes an item by dismissing the tile', (
+      WidgetTester tester,
+    ) async {
+      await _pumpStoragePage(tester);
+      await _addItem(tester, 'Item name');
+
+      final tile = find.byKey(const ValueKey<int>(1));
+      expect(tile, findsOneWidget);
+
+      await tester.drag(tile, const Offset(-500, 0));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Item name'), findsNothing);
+      expect(find.text('No items yet'), findsOneWidget);
+      expect(find.text('item removed from storage'), findsOneWidget);
+      expect(tile, findsNothing);
+    });
   });
 }
