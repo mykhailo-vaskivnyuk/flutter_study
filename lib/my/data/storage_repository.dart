@@ -19,17 +19,17 @@ class StorageRepository {
 
   Future<void> _save() async {
     try {
-      final rawItems = _items.map((item) => item.toJson()).toList();
-      await _localStorage.saveData(rawItems);
+      final jsonList = _items.map((item) => item.toJson()).toList();
+      await _localStorage.saveData(jsonList);
     } catch (error, stackTrace) {
       log('Failed to save storage', error: error, stackTrace: stackTrace);
     }
   }
 
   Future<void> initialize() async {
-    final rawItems = await _localStorage.getData();
+    final jsonList = await _localStorage.getData();
 
-    _items.addAll(rawItems.map(Item.fromJson));
+    _items.addAll(jsonList.map(Item.fromJson));
     _lastId = _items.lastOrNull?.id ?? 0;
   }
 
